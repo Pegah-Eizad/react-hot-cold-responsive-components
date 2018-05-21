@@ -27,10 +27,11 @@ app.get('/', (req, res) => {
 
   res.send(`
     <!DOCTYPE html>
-    <html>
+    <html style="background:#484A47">
       <head>
         <title>React SSR Example</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
       </head>
       <body>
         <div id="app">${content}</div>

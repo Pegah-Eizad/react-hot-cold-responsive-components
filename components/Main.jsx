@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'react-grid-system';
 import { setLocale, setTranslations } from 'react-i18nify';
-import GridSystem from './GridSystem.jsx';
-import I18nify from './I18nify.jsx';
-import ResponsiveUtilities from './ResponsiveUtilities.jsx';
+import ResponsiveUtilities from './ResponsiveUtilities.jsx'
+import Header from './header.js';
+import GameForm from './gameform.js';
 
 setTranslations({
   en: {
@@ -39,15 +39,11 @@ class ExampleComponent extends React.Component {
   });
 
   render = () => (
-    <Container>
-      <h1>React grid system</h1>
-      <GridSystem />
+    <Container style={{width: '100%', background: '#5B1091', borderRadius: '10px', border: '2px solid #000000', boxShadow: '25px 25px 25px 0px rgba(11,15,24,1)', paddingBottom: '30px' }}>
 
-      <h1>React responsive utilities</h1>
+    <h1 style={{color: 'white', textAlign: 'center', fontSize: '3.7em', fontFamily: '\'Passion One\', cursive'}}>HOT or COLD</h1>
       <ResponsiveUtilities />
-
-      <h1>React-i18nify</h1>
-      <I18nify />
+      <GameForm />
     </Container>
   );
 }
