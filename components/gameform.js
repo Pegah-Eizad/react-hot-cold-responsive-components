@@ -5,11 +5,18 @@ export default class GameForm extends React.Component {
         super(props);
     }
 
+    buttonClicked(){
+      return true;
+    }
+
     onSubmit(event){
       event.preventDefault();
       const num = this.numInput.value.trim();
-      if (this.props.onInputChange){
+      if (this.props.onInputChange && !this.props.winStatus){
         this.props.onInputChange(num);
+      }
+      else if (this.props.onInputChange && this.props.winStatus && this.buttonClicked()){
+        alert('You\'ve won the game already ;)');
       }
       this.numInput.value = '';
     }

@@ -14,8 +14,7 @@ export default class displayGuesses extends React.Component{
         {guess}
       </ul>
     );
-    console.log('displaying this array for guesses:' + guesses);
-    return <div style={{width:'48%', height: '100px', background: '#FFD23F', marginLeft: 'auto', marginRight: 'auto', borderRadius: '5px', marginTop: '0', paddingTop: '20px', paddingLeft: '11px', paddingRight: '11px'}}>
+    return <div style={{width:'48%', height: '100px', background: '#FFD23F', marginLeft: 'auto', marginRight: 'auto', borderRadius: '5px', marginTop: '0', paddingTop: '20px', paddingLeft: '1%', paddingRight: '1%'}}>
         {guesses}
      </div>;
   }

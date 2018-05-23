@@ -15,7 +15,9 @@ class GameApp extends React.Component {
       randomNum: Math.floor(Math.random() * 101),
       currentGuess: 0,
       feedback: 'Make Your Guess!',
-      guessedNumbers: []
+      guessedNumbers: [],
+      gameWon: false,
+      numTries: 0
     };
   }
   static propTypes = {
@@ -37,16 +39,15 @@ class GameApp extends React.Component {
   });
 
   updateState(num){
-    console.log('Should be updating currentGuess to ' + num);
     this.setState({
       currentGuess: num,
       feedback: this.setFeedback(num),
-      guessedNumbers: this.setGuessedNumbersArray(num)
+      guessedNumbers: this.setGuessedNumbersArray(num),
+      numTries: this.setNumberofGuesses()
     });
   }
 
   setFeedback(num){
-
     let hotRange = {
       high: this.state.randomNum + 20,
       low: this.state.randomNum - 20
@@ -55,8 +56,10 @@ class GameApp extends React.Component {
       high: hotRange.high + 10,
       low: hotRange.low - 10
     };
-    console.log('inside setFeedback and currentGuess is: ' + num);
-    if (num <= hotRange.high && num >= hotRange.low){
+    if(num == this.state.randomNum){
+      return(this.handleWin());
+    }
+    else if (num <= hotRange.high && num >= hotRange.low){
       return('Hot');
     }
     else if (num <= kindaHotRange.high && num >= hotRange.high || num >= kindaHotRange.low && num <= hotRange.low){
@@ -73,13 +76,27 @@ class GameApp extends React.Component {
     return arr;
   }
 
+  setNumberofGuesses(){
+    let numGuesses = this.state.numTries;
+    numGuesses++;
+    return numGuesses;
+  }
+
+  handleWin(){
+      this.setState({
+        gameWon: true,
+        numTries: this.setNumberofGuesses()
+      });
+      return('You\'ve guessed it!! You win! Press \"Guess Again" to play again');
+  }
+
   render = () => (
     <Container style={{width: '100%', background: '#5B1091', borderRadius: '10px', border: '2px solid #000000', boxShadow: '25px 25px 25px 0px rgba(11,15,24,1)', paddingBottom: '300px' }}>
       <h1 style={{color: 'white', textAlign: 'center', fontSize: '3.7em', fontFamily: '\'Passion One\', cursive'}}>HOT or COLD</h1>
       <Header feedback={this.state.feedback}/>
-      <GameForm val={this.state.currentGuess} onInputChange={num => this.updateState(num)}/>
+      <GameForm winStatus={this.state.gameWon} val={this.state.currentGuess} onInputChange={num => this.updateState(num)}/>
       <ScreenClassRender render={screenClass => (
-      <p style={{background: '#4ECDC4', fontSize: ['lg', 'xl'].includes(screenClass) ? '2rem' : '1rem', width:'50%', width: '50%', height: '70px', marginTop: '0px', marginBottom: '0px', marginLeft: 'auto', marginRight: 'auto', borderRadius: '5px', textAlign: 'center', lineHeight: '4.5rem', fontFamily: '\'Tajawal\', sans-serif'}}> Guess# 0 </p>
+      <p style={{background: '#4ECDC4', fontSize: ['lg', 'xl'].includes(screenClass) ? '2rem' : '1rem', width:'50%', width: '50%', height: '70px', marginTop: '0px', marginBottom: '0px', marginLeft: 'auto', marginRight: 'auto', borderRadius: '5px', textAlign: 'center', lineHeight: '4.5rem', fontFamily: '\'Tajawal\', sans-serif'}}> Guess# {this.state.numTries} </p>
       )}
       />
       <DisplayGuesses guesses={this.state.guessedNumbers}/>
