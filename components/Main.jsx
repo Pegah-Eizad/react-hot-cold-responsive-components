@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import { Container } from 'react-grid-system';
 import { Visible, Hidden, ScreenClassRender } from 'react-grid-system';
 import { setLocale, setTranslations } from 'react-i18nify';
-import Header from './header.jsx'
+import Header from './header.jsx';
 import GameForm from './gameform.js';
-import DisplayGuesses from './displayguesses.js'
+import DisplayGuesses from './displayguesses.js';
 
-class ExampleComponent extends React.Component {
+
+class GameApp extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       randomNum: Math.floor(Math.random() * 101),
       currentGuess: 0,
-      feedback: 'Make Your Guess!'
+      feedback: 'Make Your Guess!',
+      guessedNumbers: []
     };
   }
   static propTypes = {
@@ -38,7 +40,8 @@ class ExampleComponent extends React.Component {
     console.log('Should be updating currentGuess to ' + num);
     this.setState({
       currentGuess: num,
-      feedback: this.setFeedback(num)
+      feedback: this.setFeedback(num),
+      guessedNumbers: this.setGuessedNumbersArray(num)
     });
   }
 
@@ -64,6 +67,12 @@ class ExampleComponent extends React.Component {
     }
   }
 
+  setGuessedNumbersArray(num){
+    let arr = this.state.guessedNumbers;
+    arr[arr.length] = num;
+    return arr;
+  }
+
   render = () => (
     <Container style={{width: '100%', background: '#5B1091', borderRadius: '10px', border: '2px solid #000000', boxShadow: '25px 25px 25px 0px rgba(11,15,24,1)', paddingBottom: '300px' }}>
       <h1 style={{color: 'white', textAlign: 'center', fontSize: '3.7em', fontFamily: '\'Passion One\', cursive'}}>HOT or COLD</h1>
@@ -73,9 +82,9 @@ class ExampleComponent extends React.Component {
       <p style={{background: '#4ECDC4', fontSize: ['lg', 'xl'].includes(screenClass) ? '2rem' : '1rem', width:'50%', width: '50%', height: '70px', marginTop: '0px', marginBottom: '0px', marginLeft: 'auto', marginRight: 'auto', borderRadius: '5px', textAlign: 'center', lineHeight: '4.5rem', fontFamily: '\'Tajawal\', sans-serif'}}> Guess# 0 </p>
       )}
       />
-      <DisplayGuesses />
+      <DisplayGuesses guesses={this.state.guessedNumbers}/>
     </Container>
   );
 }
 
-export default ExampleComponent;
+export default GameApp;
