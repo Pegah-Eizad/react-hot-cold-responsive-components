@@ -22,6 +22,9 @@ app.get('/', (req, res) => {
   if (md.phone() !== null) serverSideScreenClass = 'xs';
   if (md.tablet() !== null) serverSideScreenClass = 'md';
 
+  //const component = <MainComponent defaultScreenClass={defaultScreenClass} />;
+  //const content = ReactDomServer.renderToString(<MainComponent defaultScreenClass={defaultScreenClass} />);
+
   const component = <MainComponent serverSideScreenClass={serverSideScreenClass} />;
   const content = ReactDomServer.renderToString(component);
 

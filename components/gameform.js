@@ -13,7 +13,11 @@ export default class GameForm extends React.Component {
       event.preventDefault();
       const num = this.numInput.value.trim();
       if (this.props.onInputChange && !this.props.winStatus){
-        this.props.onInputChange(num);
+        if (num < 0 || num > 100){
+          alert('The number must be between 0-100!')
+        } else {
+          this.props.onInputChange(num);
+        }
       }
       else if (this.props.onInputChange && this.props.winStatus && this.buttonClicked()){
         alert('You\'ve won the game already ;)');

@@ -1,15 +1,15 @@
 import React from 'react';
 
-export default class displayGuesses extends React.Component{
+export default class DisplayGuesses extends React.Component{
   constructor(props){
     super(props);
-    this.state = {
+    /*this.state = {
       guessedNumbers: this.props.guesses
-    }
+    }*/
   }
 
   render(){
-    let guesses = this.state.guessedNumbers.map((guess, index) =>
+    let guesses = this.props.guesses.map((guess, index) =>
       <ul key={index} style={{display: 'inline', background: '#1a4e95', padding: '0.3em', borderRadius: '4px', color: 'white', margin: '0.2em'}}>
         {guess}
       </ul>
